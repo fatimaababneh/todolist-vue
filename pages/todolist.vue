@@ -1,6 +1,7 @@
 <template>
   <div class="list">
     {{ toggle }}
+    {{$store.state.tasks.tasks}}
     <h1>To do List</h1>
     <!-- <Clear @clearList="clearList" /> -->
     <div class="btn-inpt">
@@ -8,19 +9,9 @@
       <button @click="onkl" id="btn">Add Note</button>
     </div>
     <div v-for="(item, index) in items" :key="index">
-      <div v-if="toggle[index]">
-        <input type="text" v-model="inputV" />
-        <button @click="done(index)" id="delete-btn">done</button>
-      </div>
-      <div v-else>
-        <div>
-          <div >
-            
-              <Note :item="item" :index="index" @delnote="delnote" @update="update"/>
-           
-          </div>
-        </div>
-      </div>
+      <!-- <Note :item="item" :index="index" @delnote="delnote" @update="update" /> -->
+      <List :task="item" :index="index" @delnote="delnote" @update="update"/>
+
     </div>
   </div>
 </template>
@@ -28,6 +19,7 @@
 <script>
 import Note from '../components/Note.vue'
 import Clear from '../components/Clear.vue'
+
 export default {
   name: 'Todo',
   data() {
@@ -37,37 +29,30 @@ export default {
       inputV: '',
       toggle: [],
       edit: false,
+      editdata:''
     }
   },
   methods: {
     onkl() {
-      this.toggle = [...this.toggle , false]
+      this.toggle = [...this.toggle, false]
       this.items = [...this.items, this.inputValue]
     },
     delnote(data) {
-      console.log(data)
       this.items.splice(data, 1)
     },
-    update(index) {
-      console.log(index)
-      // console.log(this.toggle);
-      // const arr = this.toggle
-      // arr[index] = true
-      // this.toggle = arr
-      // this.toggle[index]=true;
-      // this.inputV = this.items[index]
-      // this.edit=true;
+    update(data) {
+      console.log(data)
+      this.items[data.index]=data.value;
+      console.log(this.items[data.index])
     },
     done(index) {
       this.edit = false
       this.toggle[index] = false
     },
-    clearList(data){
-        console.log(data);
-        // this.items= this.items.filter((ele,i)=>{
-        //     return i !== data.index
-        // })
-    }
+    clearList(data) {
+      console.log(data)
+
+    },
   },
   components: { Note, Clear },
 }
