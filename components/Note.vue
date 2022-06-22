@@ -1,13 +1,17 @@
 <template>
     <div>
-        <div class="note" > 
+        <div class="note" v-if="!toggle"> 
             {{ item }}
             <div>
               <!-- <Note :item="item" :index="index"/> -->
-              <button @click="update(index)" id="delete-btn">Update</button>
-              <button @click="delnote(index)" id="delete-btn">Delete</button>
+              <button @click="update()" id="delete-btn">Update</button>
+              <button @click="delnote()" id="delete-btn">Delete</button>
             </div>
         </div>
+        <div v-else>
+        <input type="text" v-model="inputV" />
+        <button @click="done()" id="delete-btn">done</button>
+      </div>
     </div>
 </template>
 
@@ -23,12 +27,23 @@ props:{
   },
 data(){
     return {
-        
-  
+        data(){
+            return{
+                toggle:false,
+                inputV:item
+            }
+        }
 } },
     methods: {
         delnote(){
-            this.$emit('delnote', { data: index })
+            this.$emit('delnote', this.index)
+            this.toggle=!this.toggle
+        },
+        update() {
+            this.$emit('update', {index : this.index, value:this.inputV})
+        }
+        ,done(){
+            this.toggle=!this.toggle
         }
     }
 }

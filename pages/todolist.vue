@@ -16,7 +16,7 @@
         <div>
           <div >
             
-              <Note :item="item" :index="index" @delnote="delnote"/>
+              <Note :item="item" :index="index" @delnote="delnote" @update="update"/>
            
           </div>
         </div>
@@ -46,14 +46,14 @@ export default {
     },
     delnote(data) {
       console.log(data)
-      this.items.splice(data.index, 1)
+      this.items.splice(data, 1)
     },
     update(index) {
       console.log(index)
-      console.log(this.toggle);
-      const arr = this.toggle
-      arr[index] = true
-      this.toggle = arr
+      // console.log(this.toggle);
+      // const arr = this.toggle
+      // arr[index] = true
+      // this.toggle = arr
       // this.toggle[index]=true;
       // this.inputV = this.items[index]
       // this.edit=true;
@@ -63,10 +63,10 @@ export default {
       this.toggle[index] = false
     },
     clearList(data){
-        console.log(data.index);
-        this.items= this.items.filter((ele,i)=>{
-            return i !== data.index
-        })
+        console.log(data);
+        // this.items= this.items.filter((ele,i)=>{
+        //     return i !== data.index
+        // })
     }
   },
   components: { Note, Clear },
