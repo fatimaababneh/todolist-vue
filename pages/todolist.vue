@@ -13,6 +13,8 @@
       <List :task="item" :index="index" @delnote="delnote" @update="update"/>
 
     </div>
+
+    <!-- obada -->
   </div>
 </template>
 
