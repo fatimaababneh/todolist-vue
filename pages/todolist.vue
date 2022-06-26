@@ -2,7 +2,7 @@
   <div class="list">
     {{ toggle }}
     {{$store.state.tasks.tasks}}
-    <h1>To do List</h1>
+    <h1>To do List</h1><NuxtLink to="/product">products</NuxtLink>
     <!-- <Clear @clearList="clearList" /> -->
     <div class="btn-inpt">
       <input id="inpt" v-model="inputValue" />
@@ -15,7 +15,9 @@
     </div>
 
     <!-- obada -->
+    
   </div>
+  
 </template>
 
 <script>
